@@ -1,12 +1,12 @@
-resource "aws_opensearchserverless_security_policy" "example" {
-  name        = "example"
+resource "aws_opensearchserverless_security_policy" "encryption" {
+  name        = "encryption"
   type        = "encryption"
-  description = "encryption security policy for collections that begin with \"example\""
+  description = "encryption security policy for collection"
   policy = jsonencode({
     Rules = [
       {
         Resource = [
-          "collection/example*"
+          "collection/${var.name}"
         ],
         ResourceType = "collection"
       }
@@ -14,3 +14,36 @@ resource "aws_opensearchserverless_security_policy" "example" {
     AWSOwnedKey = true
   })
 }
+
+resource "aws_opensearchserverless_security_policy" "network" {
+  name        = "network"
+  type        = "network"
+  description = "Public access"
+  policy = jsonencode([
+    {
+      Description = "Public access to collection and Dashboards endpoint",
+      Rules = [
+        {
+          ResourceType = "collection",
+          Resource = [
+            "collection/${var.name}"
+          ]
+        },
+        {
+          ResourceType = "dashboard"
+          Resource = [
+            "collection/${var.name}"
+          ]
+        }
+      ],
+      AllowFromPublic = false,
+      SourceVPCEs = [
+        aws_opensearchserverless_vpc_endpoint.endpoint.id
+      ]
+    }
+  ])
+}
+
+
+
+

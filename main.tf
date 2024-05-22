@@ -7,7 +7,6 @@ terraform {
     aws = {
       source  = "hashicorp/aws"
       version = "5.50.0"
-
     }
 
   }
@@ -17,5 +16,5 @@ terraform {
 provider "aws" {
   shared_credentials_files = ["~/.aws/credentials"]
   profile                  = "gordonmurray"
-  region                   = "us-east-1"
+  region                   = var.region
 }

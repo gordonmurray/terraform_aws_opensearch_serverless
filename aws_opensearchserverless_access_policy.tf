@@ -1,8 +1,8 @@
 data "aws_caller_identity" "current" {}
 
 # This is in the "Data access policies" section in the AWS Console
-resource "aws_opensearchserverless_access_policy" "example" {
-  name        = "example"
+resource "aws_opensearchserverless_access_policy" "data" {
+  name        = "data"
   type        = "data"
   description = "read and write permissions"
   policy = jsonencode([
@@ -11,7 +11,7 @@ resource "aws_opensearchserverless_access_policy" "example" {
         {
           ResourceType = "index",
           Resource = [
-            "index/example-collection/*"
+            "index/${var.name}/*"
           ],
           Permission = [
             "aoss:*"
@@ -20,7 +20,7 @@ resource "aws_opensearchserverless_access_policy" "example" {
         {
           ResourceType = "collection",
           Resource = [
-            "collection/example-collection"
+            "collection/${var.name}"
           ],
           Permission = [
             "aoss:*"
