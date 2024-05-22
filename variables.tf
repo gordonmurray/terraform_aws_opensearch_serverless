@@ -5,9 +5,9 @@ variable "name" {
 }
 
 variable "region" {
-    description = "The AWS region"
-    type        = string
-    default     = "eu-west-1"
+  description = "The AWS region"
+  type        = string
+  default     = "eu-west-1"
 }
 
 variable "vpc_id" {

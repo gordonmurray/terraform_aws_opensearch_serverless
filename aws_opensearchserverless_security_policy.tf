@@ -18,10 +18,10 @@ resource "aws_opensearchserverless_security_policy" "encryption" {
 resource "aws_opensearchserverless_security_policy" "network" {
   name        = "network"
   type        = "network"
-  description = "Public access"
+  description = "Private access"
   policy = jsonencode([
     {
-      Description = "Public access to collection and Dashboards endpoint",
+      Description = "access to collection and Dashboards endpoint",
       Rules = [
         {
           ResourceType = "collection",
